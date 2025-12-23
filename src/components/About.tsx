@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 const About = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [aboutText, setAboutText] = useState(
-    "Hello! My name is Eman Mukhtar and I am a Frontend Developer who codes with precision, a Graphic Designer who creates with flair, and a Full-Stack Problem Solver who’s explored AI-powered solutions from concept to deployment. Whether it’s building responsive React.js interfaces, designing pixel-perfect visuals in Figma and Illustrator, or integrating smart backend logic. I bring creativity, performance, and innovation to every project."
+    "Hello! My name is Eman and I am a Developer who codes with precision, a Graphic Designer who creates with flair, and a Full-Stack Problem Solver who’s explored AI-powered solutions from concept to deployment. Whether it’s building responsive React.js interfaces, designing pixel-perfect visuals in Figma and Illustrator, or integrating smart backend logic. I bring creativity, performance, and innovation to every project."
 
   );
   const [tempText, setTempText] = useState(aboutText);
