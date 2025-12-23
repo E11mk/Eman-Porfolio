@@ -49,7 +49,7 @@ const Navigation = () => {
               className="text-2xl font-bold text-gradient cyber-text"
               whileHover={{ scale: 1.05 }}
             >
-              &lt;Eman Mukhtar&gt;
+              &lt;Eman &gt;
             </motion.div>
 
             {/* Desktop Menu */}
