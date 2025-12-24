@@ -4,8 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, MessageCircle, Lock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+// Toggle to quickly disable the Contact section (blurs content, shows lock overlay)
+const CONTACT_DISABLED = true;
 
 const Contact = () => {
   const { toast } = useToast();
@@ -65,9 +68,16 @@ const Contact = () => {
     setIsSubmitting(false);
   };
 
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (CONTACT_DISABLED) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <section id="contact" className="min-h-screen py-20 bg-gradient-cosmic">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative">
+        <div className={CONTACT_DISABLED ? "blur-sm" : ""}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +110,12 @@ const Contact = () => {
                   </h3>
                 </div>
 
-                <form action="https://formspree.io/f/xpwjaake" method="POST" className="space-y-6">
+                <form
+                  action="https://formspree.io/f/xpwjaake"
+                  method="POST"
+                  className="space-y-6"
+                  onSubmit={(e) => { if (CONTACT_DISABLED) { e.preventDefault(); return; } }}
+                >
                 <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you" />
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -114,6 +129,7 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="Your Name"
                         required
+                        disabled={CONTACT_DISABLED}
                         className="bg-secondary border-border focus:border-primary"
                       />
                     </div>
@@ -129,6 +145,7 @@ const Contact = () => {
                         onChange={handleInputChange}
                         placeholder="your.email@example.com"
                         required
+                        disabled={CONTACT_DISABLED}
                         className="bg-secondary border-border focus:border-primary"
                       />
                     </div>
@@ -145,6 +162,7 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="Subject"
                       required
+                      disabled={CONTACT_DISABLED}
                       className="bg-secondary border-border focus:border-primary"
                     />
                   </div>
@@ -160,6 +178,7 @@ const Contact = () => {
                       onChange={handleInputChange}
                       placeholder="Type your message..."
                       required
+                      disabled={CONTACT_DISABLED}
                       rows={6}
                       className="bg-secondary border-border focus:border-primary resize-none"
                     />
@@ -167,7 +186,7 @@ const Contact = () => {
 
                   <Button 
                     type="submit" 
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || CONTACT_DISABLED}
                     className="w-full glass-button group"
                     size="lg"
                   >
@@ -217,11 +236,22 @@ const Contact = () => {
                       <div className="w-12 h-12 glass-card rounded-lg flex items-center justify-center group-hover:shadow-neon transition-all">
                         <info.icon className="w-5 h-5 text-primary" />
                       </div>
+
+                      {CONTACT_DISABLED && (
+                        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/40 text-white p-6">
+                          <Lock className="w-12 h-12 mb-4" />
+                          <p className="text-xl font-semibold">Contact Disabled</p>
+                          <p className="text-sm mt-2">This section is temporarily unavailable.</p>
+                        </div>
+                      )}
                       <div>
                         <p className="text-sm text-muted-foreground">{info.label}</p>
                         {info.href ? (
-                          <a 
+                          <a
                             href={info.href}
+                            onClick={handleAnchorClick}
+                            tabIndex={CONTACT_DISABLED ? -1 : 0}
+                            aria-disabled={CONTACT_DISABLED}
                             className="text-foreground hover:text-primary transition-colors font-medium"
                           >
                             {info.value}
@@ -250,6 +280,8 @@ const Contact = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={handleAnchorClick}
+                      tabIndex={CONTACT_DISABLED ? -1 : 0}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -307,17 +339,17 @@ const Contact = () => {
              If my work speaks to you, let’s connect.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="mailto:emanmukhtar5@gmail.com">
-  <Button className="glass-button" size="lg">
-    <Mail className="w-5 h-5 mr-2" />
-    Start a Conversation
-  </Button>
-</a>
-<a href="#about">
-  <Button variant="outline" className="glass-button" size="lg">
-    View My Work
-  </Button>
-</a>
+              <a href="mailto:emanmukhtar5@gmail.com" onClick={handleAnchorClick} tabIndex={CONTACT_DISABLED ? -1 : 0}>
+                <Button className="glass-button" size="lg" disabled={CONTACT_DISABLED}>
+                  <Mail className="w-5 h-5 mr-2" />
+                  Start a Conversation
+                </Button>
+              </a>
+              <a href="#about" onClick={handleAnchorClick} tabIndex={CONTACT_DISABLED ? -1 : 0}>
+                <Button variant="outline" className="glass-button" size="lg">
+                  View My Work
+                </Button>
+              </a>
 
             </div>
           </div>
