@@ -355,6 +355,7 @@ const Contact = () => {
           </div>
         </motion.div>
       </div>
+      </div>
     </section>
   );
 };

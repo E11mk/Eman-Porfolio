@@ -135,9 +135,9 @@ const About = () => {
                       </div>
                     )}
                   </div>
-                 
-
-                  <a href="/EMCV.pdf" download className="glass-button group w-full flex items-center justify-center">
+                
+/*removed cv for now will add new one here later */
+                  <a href="" download className="glass-button group w-full flex items-center justify-center">
   <Download className="w-4 h-4 mr-2 group-hover:animate-bounce" />
   Download Resume
 </a>
