@@ -23,7 +23,7 @@ const Portfolio = () => {
       <footer className="border-t border-border py-8">
         <div className="container mx-auto px-6 text-center">
           <p className="text-muted-foreground cyber-text">
-           Eman Mukhtar @ 2025. All rights reserved.
+           Eman @ 2025. All rights reserved.
           </p>
         </div>
       </footer>

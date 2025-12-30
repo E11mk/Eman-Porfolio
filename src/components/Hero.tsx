@@ -83,7 +83,18 @@ const FloatingParticles = () => {
   return <div className="fixed inset-0 pointer-events-none z-0">{particles}</div>;
 };
 
+// Toggle to disable specific social links (LinkedIn and email)
+const HERO_LINKS_DISABLED = true;
+
 const Hero = () => {
+  const handleSocialClick = (e: React.MouseEvent<HTMLAnchorElement>, href?: string) => {
+    if (!href) return;
+    const isLinkedin = href.includes("linkedin.com");
+    const isMailto = href.startsWith("mailto:");
+    if (HERO_LINKS_DISABLED && (isLinkedin || isMailto)) {
+      e.preventDefault();
+    }
+  };
   const scrollToNext = () => {
     const aboutSection = document.getElementById("about");
     if (aboutSection) {
@@ -125,7 +136,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <span className="block">Front-End Developer</span>
+              <span className="block">Developer</span>
               <span className="block neon-text">& Graphic Designer</span>
             </motion.h1>
 
@@ -167,18 +178,24 @@ const Hero = () => {
                   { icon: Github, href: "https://github.com/emanmukhtar" },
                   { icon: Linkedin, href: "https://www.linkedin.com/in/eman-mukhtar-89b963310/" },
                   { icon: Mail, href: "mailto:emanmukhtar5@gmail.com" },
-                ].map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    className="p-3 glass-card hover-neon rounded-full group"
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <social.icon className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
-                  </motion.a>
-                ))}
+                ].map((social, index) => {
+                  const isDisabled = HERO_LINKS_DISABLED && (social.href?.includes("linkedin.com") || social.href?.startsWith("mailto:"));
+                  return (
+                    <motion.a
+                      key={index}
+                      href={social.href}
+                      onClick={(e) => handleSocialClick(e, social.href)}
+                      tabIndex={isDisabled ? -1 : 0}
+                      aria-disabled={isDisabled}
+                      className={`p-3 glass-card rounded-full group ${isDisabled ? "opacity-50 cursor-not-allowed" : "hover-neon"}`}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <social.icon className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
+                    </motion.a>
+                  );
+                })}
               </div>
             </motion.div>
           </motion.div>
