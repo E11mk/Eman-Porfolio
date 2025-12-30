@@ -1,4 +1,4 @@
-Hello my name is Eman Mukhtar and this is my portfolio.
+Hello my name is Eman and this is my portfolio.
 
 This project is built with:
 
