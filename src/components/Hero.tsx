@@ -176,8 +176,10 @@ const Hero = () => {
               <div className="flex items-center space-x-4">
                 {[
                   { icon: Github, href: "https://github.com/emanmukhtar" },
-                  { icon: Linkedin, href: "https://www.linkedin.com/in/eman-mukhtar-89b963310/" },
-                  { icon: Mail, href: "mailto:emanmukhtar5@gmail.com" },
+                  { icon: Linkedin, href: "" },
+                  //https://www.linkedin.com/in/eman-mukhtar-89b963310/
+                  { icon: Mail, href: "" },
+                  //mailto:emanmukhtar5@gmail.com
                 ].map((social, index) => {
                   const isDisabled = HERO_LINKS_DISABLED && (social.href?.includes("linkedin.com") || social.href?.startsWith("mailto:"));
                   return (

@@ -43,7 +43,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/EmanMukhtar", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/eman-mukhtar-89b963310/", label: "LinkedIn" },
+    { icon: Linkedin, href: "", label: "LinkedIn" }, //https://www.linkedin.com/in/eman-mukhtar-89b963310/
     { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
   ];
 
